@@ -11,12 +11,6 @@ int main() {
 	for (int &t : x) { cin >> t; }
 	for (int &t : y) { cin >> t; }
 
-	cout << "DEFAULT X: ";
-	for (int t : x) { cout << t << " "; }
-	cout << "\nDEFAULT Y: ";
-	for (int t : y) { cout << t << " "; }
-	cout << endl;
-
 	int max_squared = 0; // 26
 	for (int i = 0; i < n; i++) { // 1
 		for (int j = i + 1; j < n; j++) { // 2
