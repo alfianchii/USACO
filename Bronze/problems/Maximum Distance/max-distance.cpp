@@ -17,13 +17,13 @@ int main() {
 	for (int t : y) { cout << t << " "; }
 	cout << endl;
 
-	int max_squared = 0;
-	for (int i = 0; i < n; i++) {
-		for (int j = i + 1; j < n; j++) {
-			int dx = x[i] - x[j];
-			int dy = y[i] - y[j];
+	int max_squared = 0; // 26
+	for (int i = 0; i < n; i++) { // 1
+		for (int j = i + 1; j < n; j++) { // 2
+			int dx = x[i] - x[j]; // 1
+			int dy = y[i] - y[j]; // 5
 
-			int square = dx*dx + dy*dy;
+			int square = dx*dx + dy*dy; // 26
 			if (square > max_squared) max_squared = square;
 		}
 	}
