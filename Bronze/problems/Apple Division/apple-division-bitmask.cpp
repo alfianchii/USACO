@@ -15,6 +15,8 @@ int main() {
     ll sum1 = 0;
     ll sum2 = 0;
     for (int i = 0; i < n; i++) {
+      cout << "====== " << (1 << i) << endl;
+      cout << mask << endl;
       if (mask & (1 << i)) {
         sum1 += weights[i];
       } else {
@@ -22,7 +24,9 @@ int main() {
       }
     }
 
+
     ans = min(ans, abs(sum1 - sum2));
+    cout << "===================== " << sum1 << " " << sum2 << endl;
   }
 
   freopen("apple.out", "w", stdout);
