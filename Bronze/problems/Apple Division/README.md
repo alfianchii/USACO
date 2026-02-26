@@ -74,6 +74,44 @@ Instead of recursion, we can also represent each possible division using a bitma
 
    For each division, we do compute `abs(sum1 - sum2)` and keep track of the minimum value across all masks.
 
+#### Example
+
+Input: `[3, 2, 4]` (`n = 3`)
+
+- First, it means `3 + 2 + 4 = 9`, we have `9` as the weight of all apples.
+- Second, it means `2 . 2 . 2 = 8`, we have `8` possibilities.
+
+| Mask (decimal) | Binary | Meaning                   |
+| -------------- | ------ | ------------------------- |
+| 0              | 000    | all apples in Group 2     |
+| 1              | 001    | apple 0 in Group 1        |
+| 2              | 010    | apple 1 in Group 1        |
+| 3              | 011    | apples 0 and 1 in Group 1 |
+| 4              | 100    | apple 2 in Group 1        |
+| 5              | 101    | apples 0 and 2 in Group 1 |
+| 6              | 110    | apples 1 and 2 in Group 1 |
+| 7              | 111    | all apples in Group 1     |
+
+For each mask, we compute the total weight of Group 1 and Group 2 based on the binary representation of the mask. If the `i`-th bit is `1`, apple `i` is placed in Group 1; otherwise, it is placed in Group 2.
+
+| Mask | Binary | Group 1 apples | Group 1 sum | Group 2 sum | Difference |
+| ---- | ------ | -------------- | ----------- | ----------- | ---------- |
+| 0    | 000    | —              | 0           | 9           | 9          |
+| 1    | 001    | {3}            | 3           | 6           | 3          |
+| 2    | 010    | {2}            | 2           | 7           | 5          |
+| 3    | 011    | {3, 2}         | 5           | 4           | 1          |
+| 4    | 100    | {4}            | 4           | 5           | 1          |
+| 5    | 101    | {3, 4}         | 7           | 2           | 5          |
+| 6    | 110    | {2, 4}         | 6           | 3           | 3          |
+| 7    | 111    | {3, 2, 4}      | 9           | 0           | 9          |
+
+From the table above, the minimum absolute difference is `min = 1`. This minimum is achieved by the following divisions:
+
+- Group 1: `{3, 2}` and Group 2: `{4}`
+- Group 1: `{4}` and Group 2: `{3, 2}`
+
+Therefore, the correct output for this example is `1`.
+
 ## Notes
 
 - Nothing.
