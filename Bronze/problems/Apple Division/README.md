@@ -36,7 +36,9 @@ Group 1 has weights 2, 3, and 4 (total weight 9), and group 2 has weights 1 and 
 
 ## Approach
 
-Since the maximum number of apples is very small (`n <= 20`), this is a perfect candidate for a brute-force/complete search approach. We can generate all possible ways to divide the apples into two sets.
+Since the maximum number of apples is very small (`n <= 20`), this is a perfect candidate for a brute-force/complete search approach. We can generate all possible ways to divide the apples into two sets. There are two common ways to implement this idea: recursion and bitmasking.
+
+### Recursive Complete Search
 
 1. Recursive State: Create a recursive function that tracks the `index` of the current apple being evaluated, the `sum1` (total weight of Group 1 so far), and `sum2` (total weight of Group 2 so far).
 2. Branching: For each apple at `index`, make two recursive calls:
@@ -46,6 +48,31 @@ Since the maximum number of apples is very small (`n <= 20`), this is a perfect 
 
 3. Base Case: When `index == n` (all apples have been distributed), calculate and return the absolute difference `abs(sum1 - sum2)`.
 4. Optimization: At each step, return the `min()` of the two recursive branches. The function will naturally bubble up the smallest absolute difference found across all combinations.
+
+This approach explores all `2^n` possible divisions and works efficiently because `n` is small.
+
+### Complete Search Using Bitmask
+
+Instead of recursion, we can also represent each possible division using a bitmask.
+
+1. Bitmask Representation
+
+   Each integer `mask` from `0` to `2^n - 1` (we start from 0, not 1) represents one possible division:
+   - The `i`-th bit of `mask` determines where apple `i` goes.
+   - If the `i`-th bit is `1`, apple `i` is placed in Group 1.
+   - If the `i`-th bit is `0`, apple `i` is placed in Group 2.
+
+2. Iterating Over All Possibilities
+
+   We loop through all values of `mask`. This guarantees that every possible division is considered exactly once.
+
+3. Computing Group Sums
+
+   For each `mask`, we iterate through all apples and add `weights[i]` to `sum1` if `(mask & (1 << i))` is non-zero. Otherwise, add `weights[i]` to `sum2`.
+
+4. Tracking the Minimum Difference
+
+   For each division, we do compute `abs(sum1 - sum2)` and keep track of the minimum value across all masks.
 
 ## Notes
 
